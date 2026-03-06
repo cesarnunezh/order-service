@@ -10,13 +10,14 @@ help:
 	@echo "  build   - build docker image"
 
 setup:
-	uv sync
+	docker build --target test -t orders-api:test
 
 lint:
-	ruff check .
+	docker run --rm orders-api:test ruff format --check .
+	docker run --rm orders-api:test ruff check .
 
 test:
-	pytest
+	docker run --rm orders-api:test pytest
 
 scan:
 	@echo "No security scanner configured yet for order-service"

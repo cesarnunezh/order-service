@@ -19,6 +19,10 @@ COPY . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-editable
 
+# ---------- Test ----------
+FROM builder AS test
+
+ENV PATH="/app/.venv/bin:$PATH"
 
 # ---------- Runtime ----------
 FROM python:3.12-slim AS runtime
