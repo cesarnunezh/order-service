@@ -13,11 +13,11 @@ setup:
 	docker build --target test -t orders-api:test .
 
 lint:
-	docker run --rm orders-api:test ruff format --check .
-	docker run --rm orders-api:test ruff check .
+	docker run --rm orders-api:test uvx ruff format --check .
+	docker run --rm orders-api:test uvx ruff check .
 
 test:
-	docker run --rm orders-api:test pytest
+	docker run --rm orders-api:test uv run -m pytest
 
 scan:
 	@echo "No security scanner configured yet for order-service"
