@@ -14,8 +14,16 @@ dependencies = [
 
 [tool.uv]
 
+[tool.uv.sources]
+order-service = { workspace = true }
+
 [tool.ruff]
 line-length = 100
 
 [tool.pytest.ini_options]
 addopts = "-q"
+
+[dependency-groups]
+dev = [
+    "order-service",
+]

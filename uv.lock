@@ -248,6 +248,11 @@ dependencies = [
     { name = "uvicorn" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "order-service" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "asyncpg", specifier = ">=0.31.0" },
@@ -258,6 +263,9 @@ requires-dist = [
     { name = "sqlalchemy", extras = ["asyncio"], specifier = ">=2.0.47" },
     { name = "uvicorn", specifier = ">=0.30.0" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "order-service", virtual = "." }]
 
 [[package]]
 name = "packaging"
