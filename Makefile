@@ -5,21 +5,25 @@ help:
 	@echo "  setup   - install dependencies"
 	@echo "  lint    - run ruff"
 	@echo "  test    - run pytest"
+	@echo "  scan    - run security scan placeholder"
 	@echo "  run     - run uvicorn"
 	@echo "  build   - build docker image"
 
 setup:
-	pip install --no-cache-dir uv
-	uv pip install --system fastapi uvicorn ruff pytest httpx
+	docker build --target test -t orders-api:test .
 
 lint:
-	ruff check .
+	docker run --rm orders-api:test uvx ruff format --check .
+	docker run --rm orders-api:test uvx ruff check .
 
 test:
-	pytest
+	docker run --rm orders-api:test uv run -m pytest
+
+scan:
+	@echo "No security scanner configured yet for order-service"
 
 run:
 	uvicorn src.main:app --reload
 
 build:
-	docker build -t order-order-service:local .
+	docker build -t orders-api:ci-local .
