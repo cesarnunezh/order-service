@@ -19,16 +19,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class OrderCreate(BaseModel):
     product_id: int = Field(..., ge=1)
     quantity: int = Field(..., ge=1)
 
+
 class OrderStatusUpdate(BaseModel):
     status: str = Field(..., min_length=1, max_length=32)
+
 
 @app.get("/health")
 async def health() -> dict:
     return {"status": "ok"}
+
 
 @app.post("/orders", status_code=201)
 async def create_order(payload: OrderCreate, db: AsyncSession = Depends(get_db)):
@@ -50,6 +54,7 @@ async def create_order(payload: OrderCreate, db: AsyncSession = Depends(get_db))
     await db.refresh(new_order)
 
     return new_order
+
 
 if __name__ == "__main__":
     uvicorn.run("src.main:app", host="0.0.0.0", port=8000)
