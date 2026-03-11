@@ -2,7 +2,7 @@
 
 ciPipeline(
   serviceName: 'orders-api',
-  enableDeploy: false,
+  enableDeploy: true,
   dockerRepo: 'cesarnunezh/orders-api',
   localImageName: 'orders-api:ci-local',
   imageBuildCmd: 'make build',

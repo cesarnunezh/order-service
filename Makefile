@@ -2,7 +2,7 @@
 
 help:
 	@echo "Available targets:"
-	@echo "  setup   - install dependencies"
+	@echo "  setup   - build test docker image"
 	@echo "  lint    - run ruff"
 	@echo "  test    - run pytest"
 	@echo "  scan    - run security scan placeholder"
@@ -10,13 +10,14 @@ help:
 	@echo "  build   - build docker image"
 
 setup:
+	-docker rmi -f orders-api:test
 	docker build --target test -t orders-api:test .
 
-lint:
+lint: setup
 	docker run --rm orders-api:test uvx ruff format --check .
 	docker run --rm orders-api:test uvx ruff check .
 
-test:
+test: setup
 	docker run --rm orders-api:test uv run -m pytest
 
 scan:
